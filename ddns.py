@@ -38,10 +38,12 @@ def do_ddns():
             'Content-Type': 'application/json'
             }
 
+    # Get Host IP Address
     current_ip = get_ip()
+    # Get Cloudflare DNS Record IP Address
     cloudflare_ip = get_cloudflare_ip(url, headers)
-    print(current_ip)
-    print(cloudflare_ip)
+
+    # If IP Address is the same do nothing
     if current_ip == cloudflare_ip:
         print("IP has not changed. Doing Nothing")
     else:

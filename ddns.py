@@ -1,6 +1,7 @@
 import json
 import os
 import requests
+from datetime import datetime
 
 
 def get_ip():
@@ -44,10 +45,11 @@ def do_ddns():
     cloudflare_ip = get_cloudflare_ip(url, headers)
 
     # If IP Address is the same do nothing
+    log_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     if current_ip == cloudflare_ip:
-        print("IP has not changed. Doing Nothing")
+        print("%(log_time)s: IP has not changed. Doing Nothing" % {'log_time': log_time})
     else:
-        print("IP has changed. Updating IP to: %(current_ip)s" % {'current_ip': current_ip})
+        print("%(log_time)s: IP has changed. Updating IP to: %(current_ip)s" % {'log_time': log_time, 'current_ip': current_ip})
         set_cloudflare_ip(url, headers, current_ip)
 
 
